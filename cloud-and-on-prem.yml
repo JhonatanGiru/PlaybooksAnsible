@@ -1,7 +1,7 @@
 ---
  - name: Instalación httpd (Apache)
    become: yes
-   hosts: webServers
+   hosts: WebServers
    tasks:
 
      - name: Verificar Apache
