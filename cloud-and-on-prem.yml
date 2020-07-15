@@ -1,42 +1,42 @@
 ---
- - name: Instalación Apache
-   hosts: WebServers
-   become: yes
-   tasks:
+- name: Instalación Apache
+  hosts: WebServers
+  become: yes
+  tasks:
 
      - name: Instalar Apache (RHEL8)
-       yum:
-         name: httpd
-         state: latest
-       when: ansible_os_family == "RedHat"
+      yum:
+        name: httpd
+        state: latest
+      when: ansible_os_family == "RedHat"
      
-     - name: Instalar Apache (Ubuntu)
-       apt:
-         name: apache2
-         state: latest
-       when: ansible_os_family == "Debian"
+    - name: Instalar Apache (Ubuntu)
+      apt:
+        name: apache2
+        state: latest
+      when: ansible_os_family == "Debian"
     
-     - name: Inicializar Apache (RHEL)
-       service:
-         name: httpd
-         state: started
-       when: ansible_os_family == "RedHat"
+    - name: Inicializar Apache (RHEL)
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family == "RedHat"
 
-     - name: Inicializar Apache (Ubuntu)
-       service:
-         name: apache2
-         state: started
-       when: ansible_os_family == "Debian"
+    - name: Inicializar Apache (Ubuntu)
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family == "Debian"
     
-     - name: Configurar firewall para permitir servicio http (RedHat)
-       firewalld:
-         service: http
-         permanent: true
-         state: enabled
-         immediate: yes
-       when: ansible_os_family == "RedHat"
+    - name: Configurar firewall para permitir servicio http (RedHat)
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+      when: ansible_os_family == "RedHat"
     
-     - name: Configurar firewall para permitir servicio http (Ubuntu)
-       command:
-         cmd: ufw allow http
-       when: ansible_os_family == "Debian"
+    - name: Configurar firewall para permitir servicio http (Ubuntu)
+      command:
+        cmd: ufw allow http
+      when: ansible_os_family == "Debian"
