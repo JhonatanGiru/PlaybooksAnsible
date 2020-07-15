@@ -1,5 +1,5 @@
 ---
- - name: Instalación httpd (Apache)
+ - name: Instalación Apache
    hosts: WebServers
    become: yes
    tasks:
@@ -22,8 +22,24 @@
          state: started
        when: ansible_os_family == "RedHat"
 
-     - name: Instalar Apache (Ubuntu)
+     - name: Inicializar Apache (Ubuntu)
        service:
          name: apache2
          state: started
+       when: ansible_os_family == "Debian"
+    
+     - name: Configurar firewall para permitir servicio http (RedHat)
+       firewalld:
+         service: http
+         permanent: true
+         state: enabled
+         immediate: yes
+       when: ansible_os_family == "RedHat"
+    
+     - name: Configurar firewall para permitir servicio http (Ubuntu)
+       ufw:
+         service: http
+         permanent: true
+         state: enabled
+         immediate: yes
        when: ansible_os_family == "Debian"
