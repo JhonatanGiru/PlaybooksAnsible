@@ -37,9 +37,6 @@
        when: ansible_os_family == "RedHat"
     
      - name: Configurar firewall para permitir servicio http (Ubuntu)
-       ufw:
-         service: http
-         permanent: true
-         state: enabled
-         immediate: yes
+       command:
+         cmd: ufw allow http
        when: ansible_os_family == "Debian"
