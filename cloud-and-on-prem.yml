@@ -1,0 +1,15 @@
+---
+ - name: Instalación httpd (Apache)
+   become: yes
+   hosts: webServers
+   tasks:
+
+     - name: Verificar Apache
+       yum:
+         name: httpd
+         state: latest
+         when: ansible_os_family == RedHat
+       package:
+         name: apache2
+         state: latest
+         when: ansible_os_family == Ubuntu
