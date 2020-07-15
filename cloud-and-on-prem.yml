@@ -9,7 +9,8 @@
          name: httpd
          state: latest
          when: ansible_os_family == RedHat
+     - name: Verificar Apache
        package:
          name: apache2
          state: latest
-         when: ansible_os_family == Ubuntu
+         when: ansible_os_family == Debian
